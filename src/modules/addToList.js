@@ -1,11 +1,12 @@
 'use strict';
 
 const addCustomer = require('./addCustomer');
+const getMeta = require('./getMeta');
+
 async function AddToList(req, res) {
   try {
-    let { name } = req.body;
-    // console.log(req.body)
-    let customer = { name };
+    let { value } = req.body;
+    let customer = { value, next: null };
     let newCustomer = await addCustomer(customer);
     res.send(newCustomer);
     // console.log(newCustomer);

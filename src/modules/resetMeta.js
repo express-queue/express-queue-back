@@ -1,11 +1,11 @@
-// 'use strict';
+'use strict';
 
 const CustomerModel = require('../models/CustomerModel');
 
 async function resetMeta() {
   await CustomerModel.findOneAndUpdate(
     { meta: true },
-    { head: null, tail: null},
+    { head: null, tail: null },
     {
       upsert: true,
       strict: false

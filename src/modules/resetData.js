@@ -3,8 +3,8 @@
 const CustomerModel = require('../models/CustomerModel');
 
 async function resetData() {
-  await CustomerModel.deleteMany({ 
-    value: { $exists: true } 
+  await CustomerModel.deleteMany({
+    value: { $exists: true }
   });
   console.log('Data cleared')
 }

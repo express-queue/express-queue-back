@@ -3,7 +3,8 @@
 const mongoose = require('mongoose');
 
 const customerSchema = new mongoose.Schema({
-  name: {type: String, required: true}
+  value: { name: { type: String, required: true } },
+  next: {}
 });
 
 const customerModel = mongoose.model('customer', customerSchema);
