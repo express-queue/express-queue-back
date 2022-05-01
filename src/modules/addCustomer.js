@@ -1,24 +1,26 @@
 'use strict';
-const CustomerModel = require('../models/CustomerModel');
+
+// const CustomerModel = require('../models/CustomerModel');
+const { TableCollection } = require('../models/index');
 const getHeadID = require('./getHeadID');
 const getTailID = require('./getTailID');
 const setHead = require('./setHead');
 const setTail = require('./setTail');
 
 async function addCustomer(obj) {
-  const newCust = new CustomerModel(obj);
+  const newCust = new TableCollection(obj);
   const newNode = await newCust.save();
   const insertedId = newNode.id;
-  const head = await getHeadID(CustomerModel);
+  const head = await getHeadID(TableCollection);
 
   if (head === null) {
-    await setHead(CustomerModel, insertedId)
+    await setHead(TableCollection, insertedId)
   } else {
-    const tail = await getTailID(CustomerModel);
-    await CustomerModel.updateOne({_id: tail}, { $set: { next: insertedId } });
+    const tail = await getTailID(TableCollection);
+    await TableCollection.updateOne({_id: tail}, { $set: { next: insertedId } });
   }
 
-  await setTail(CustomerModel, insertedId);
+  await setTail(TableCollection, insertedId);
 
   return newNode
 }

@@ -1,21 +1,31 @@
 'use strict';
 
 const res = require('express/lib/response');
-const CustomerModel = require('../models/CustomerModel');
+// const CustomerModel = require('../models/CustomerModel');
+const { TableCollection } = require('../models/index');
 const getMeta = require('./getMeta');
 const setHead = require('./setHead');
+const setTail = require('./setTail');
 
 async function deleteOne(req, res) {
   let id = req.params.id;
   try {
-    let targetNode = await CustomerModel.findOneAndDelete({ _id: id });
-    let meta = await getMeta(CustomerModel);
+    let targetNode = await TableCollection.findOneAndDelete({ _id: id });
+    let meta = await getMeta(TableCollection);
 
     if (meta.head === targetNode.id) {
-      await setHead(CustomerModel, targetNode.next)
+      await setHead(TableCollection, targetNode.next)
+      if(meta.tail === targetNode.id){
+        await setTail(TableCollection, null)
+      }
     } else {
-      await CustomerModel.updateOne({ next: targetNode.id }, { next: targetNode.next });
+      let prev = await TableCollection.findOneAndUpdate({ next: targetNode.id }, { next: targetNode.next });
+      if (meta.tail === targetNode.id){
+        await setTail(TableCollection, prev.id);
+      }
     }
+
+
     res.status(200).send('Success deleting')
   }
   catch (e) {
