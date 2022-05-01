@@ -1,19 +1,27 @@
 'use strict';
 
-const CustomerModel = require('../models/CustomerModel');
+// const CustomerModel = require('../models/CustomerModel');
+const { TableCollection } = require('../models/index');
 const getHeadID = require('./getHeadID');
 const setHead = require('./setHead');
+const setTail = require('./setTail');
 
 async function prependCustomer(obj) {
-  const newCust = new CustomerModel(obj);
+  const newCust = new TableCollection(obj);
   const newNode = await newCust.save();
   const insertedId = newNode.id;
-  const head = await getHeadID(CustomerModel);
+  const head = await getHeadID(TableCollection);
 
-  if (head !== null) {
-    await CustomerModel.updateOne({_id: insertedId}, { $set: { next: head } });
+  if (head === null) {
+    await setTail(TableCollection, insertedId);
+  } else {
+    await TableCollection.updateOne({ _id: insertedId }, { $set: { next: head } });
   }
-  await setHead(CustomerModel, insertedId);
+
+
+  await setHead(TableCollection, insertedId);
+
+
   return newNode
 }
 

@@ -4,7 +4,7 @@ const addCustomer = require('./addCustomer');
 async function AddToList(req, res) {
   try {
     let { value } = req.body;
-    let customer = { value, next: null };
+    let customer = { value, next: null, prev: null };
     let newCustomer = await addCustomer(customer);
     res.send(newCustomer);
   } catch (err) {

@@ -25,7 +25,7 @@ app.get('/', (req, res) => {
 app.post('/add', addToList);
 app.post('/prepend', prependToList);
 app.get('/getList', getList);
-app.delete('/delete/:id', deleteOne)
+app.delete('/delete/:id', deleteOne);
 
 
 const start = () => {
