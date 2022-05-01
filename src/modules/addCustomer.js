@@ -1,5 +1,4 @@
 'use strict';
-
 const CustomerModel = require('../models/CustomerModel');
 const getHeadID = require('./getHeadID');
 const getTailID = require('./getTailID');

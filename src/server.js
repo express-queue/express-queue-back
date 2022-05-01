@@ -6,6 +6,8 @@ const cors = require('cors');
 const PORT = process.env.PORT;
 const addToList = require('./modules/addToList');
 const getList = require('./modules/getList');
+const prependToList = require('./modules/prependToList');
+const deleteOne = require('./modules/deleteOne');
 
 
 app.use(cors());
@@ -21,7 +23,10 @@ app.get('/', (req, res) => {
 })
 
 app.post('/add', addToList);
+app.post('/prepend', prependToList);
 app.get('/getList', getList);
+app.delete('/delete/:id', deleteOne)
+
 
 const start = () => {
   app.listen(PORT, () => {
