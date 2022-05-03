@@ -24,8 +24,25 @@ class Collection {
     console.log('data reset for:', this.model)
   }
 
-  
+  async append(){
+    // todo
+  }
 
+  async prepend(){
+    // todo
+  }
+
+  async delete(){
+    // todo
+  }
+
+  async dequeue(){
+    // todo
+  }
+
+  async enqueue(){
+    // todo
+  }
 }
 
 module.exports = Collection;
