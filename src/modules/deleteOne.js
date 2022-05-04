@@ -24,8 +24,6 @@ async function deleteOne(req, res) {
         await setTail(TableCollection, prev.id);
       }
     }
-
-
     res.status(200).send('Success deleting')
   }
   catch (e) {

@@ -1,5 +1,10 @@
 'use strict';
 
+const getHeadID = require('../../modules/getHeadID');
+const setHead = require('../../modules/setHead');
+const getTailID = require('../../modules/getTailID');
+const setTail = require('../../modules/setTail');
+
 class Collection {
   constructor(model) {
     this.model = model;
@@ -24,23 +29,52 @@ class Collection {
     console.log('data reset for:', this.model)
   }
 
-  async append(){
+  async append(obj) {
+    // todo  
+    
+    // const newCust = new TableCollection(obj);    
+    const newCust = new this.model(obj);
+    const newNode = await newCust.save();
+    const insertedId = newNode.id;
+    const head = await getHeadID(this.model);
+
+    if (head === null) {
+      await setHead(this.model, insertedId)
+    } else {
+      const tail = await getTailID(this.model);
+      await this.model.updateOne({ _id: tail }, { $set: { next: insertedId } });
+    }
+
+    await setTail(this.model, insertedId);    
+    return newNode
+  }
+
+  async prepend(obj) {
+    // todo
+    const newCust = new this.model(obj);
+    const newNode = await newCust.save();
+    const insertedId = newNode.id;
+    const head = await getHeadID(this.model);
+  
+    if (head === null) {
+      await setTail(this.model, insertedId);
+    } else {
+      await this.model.updateOne({ _id: insertedId }, { $set: { next: head } });
+    } 
+  
+    await setHead(this.model, insertedId);  
+    return newNode
+  }
+
+  async delete() {
     // todo
   }
 
-  async prepend(){
+  async dequeue() {
     // todo
   }
 
-  async delete(){
-    // todo
-  }
-
-  async dequeue(){
-    // todo
-  }
-
-  async enqueue(){
+  async enqueue() {
     // todo
   }
 }
