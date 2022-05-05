@@ -9,6 +9,8 @@ const setTail = require('./setTail');
 
 async function deleteOne(req, res) {
   let id = req.params.id;
+  let area = req.data.area;
+  console.log(area);
   try {
     let targetNode = await TableCollection.findOneAndDelete({ _id: id });
     let meta = await getMeta(TableCollection);
