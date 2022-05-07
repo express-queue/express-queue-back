@@ -17,7 +17,7 @@ app.get('/', proofOfLife);
 app.post('/addCustomer', addToQueue);
 app.post('/prepend', prependToList);
 app.get('/getList', getList);
-app.delete('/delete/:id', deleteOne);
+app.delete('/delete/:id/:area', deleteOne);
 
 const start = () => {
   app.listen(PORT, () => {
