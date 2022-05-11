@@ -2,6 +2,6 @@
 
 const customerSchema = require('../lib/customerSchema');
 
-const tableModel = (mongoose) => mongoose.model('bar', customerSchema(mongoose));
+const barModel = (mongoose) => mongoose.model('bar', customerSchema(mongoose));
 
-module.exports = tableModel;
+module.exports = barModel;
