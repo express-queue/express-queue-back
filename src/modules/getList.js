@@ -32,24 +32,10 @@ async function getList(req, res) {
     if (area === 'table') collection === TableCollection;
     if (area === 'bar') collection === BarCollection;
   } else {
-    let 
   }
 
   try {
     let result = getOneCollection(collection);
-    // let queue = [];
-
-    // try {
-    //   let head = await getHeadID(collection.model);
-    //   if (head !== null) {
-    //     let curr = head;
-    //     while (curr) {
-    //       let result = await findCustomer(collection.model, curr);
-    //       let personObj = { id: result._id, value: result.value }
-    //       queue.push(personObj);
-    //       curr = result.next;
-    //     }
-    //   }
     res.status(200).send(result);
   }
   catch (err) {
