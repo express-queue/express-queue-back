@@ -14,6 +14,7 @@ const table = tableModel(mongoose);
 const bar = barModel(mongoose);
 
 module.exports = {
+  mongoose,
   db,
   TableCollection: new Collection(table),
   BarCollection: new Collection(bar)
